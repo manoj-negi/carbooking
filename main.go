@@ -1,9 +1,11 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	util "github.com/manoj-negi/carbooking/utils"
 )
 
 type album struct {
@@ -38,6 +40,12 @@ func postAlbums(c *gin.Context) {
 }
 
 func main() {
+
+	config, err := util.LoadConfig(".")
+	if err != nil {
+		log.Fatal("cannot load config:", err)
+	}
+
 	r := gin.Default()
 	r.GET("/albums", getAlbums)
 	r.POST("/albums", postAlbums)
