@@ -46,8 +46,16 @@ func main() {
 		log.Fatal("cannot load config:", err)
 	}
 
+	/*	conn, err := sql.Open(config.DBDriver, config.DBSource)
+		if err != nil {
+			log.Fatal("cannot connect to db:", err)
+
+		}
+	*/
 	r := gin.Default()
+
 	r.GET("/albums", getAlbums)
 	r.POST("/albums", postAlbums)
-	r.Run(":8082")
+	r.POST("/users", api.createUser)
+	r.Run(config.HTTPServerAddress)
 }
